@@ -1,38 +1,3 @@
-------------------- Programme -------------------
-
-/* Le Programme ci-dessous va être utilisée pour
-la création de la BDD de CashCash. On y retrouve
-la création des différentes tables :
-
-    - Client
-    - Agence
-    - Technicien
-    - Employe
-    - Intervention
-    - TypeMateriel
-    - Contrat
-    - Gerant
-    - Materiel
-    - materielIntervention
-
-On y retrouve aussi les définitions des users 
-(User1 et User2) ainsi que leurs droits sur la 
-BDD. 
-
-------------------------------------------------
-Code et commentaire :
-            Lou KINOWSKI DESMIT
-            Teo Durieux
-
-MCD :
-            Lou KINOWSKI DESMIT
-            Lucas DUTHOIT
-            Teo DURIEUX
-------------------------------------------------
-*/
-
--------- Création des différentes table --------
-
 CREATE TABLE Employé(
    Matricule INT,
    NomEmploye VARCHAR(50),
@@ -138,18 +103,9 @@ CREATE TABLE Controler(
 );
 
 
-
--------- Définition des utilisateurs et attribution des droits --------
-
--- Role Manager : Select, Insert, Delete --
-
--- Role Dev : All --
-
--- Utilisateur Manager
 CREATE USER 'manager1'@'%' IDENTIFIED BY 'ManagerPwd123!';
 GRANT 'manager_role' TO 'manager1';
 
--- Utilisateur Dev
 CREATE USER 'dev1'@'%' IDENTIFIED BY 'DevPwd123!';
 GRANT 'dev_role' TO 'dev1';
 
@@ -158,16 +114,12 @@ SET DEFAULT ROLE 'dev_role' TO 'dev1';
 
 
 
--------- Jeu d'essai --------
-
--- ========== AGENCES ==========
 INSERT INTO Agence(idAgence, Nomagence, TelephoneAgence, Adresseagence) VALUES
 ('59ARM', 'Agence Lille - Armentières', '0320456789', '12 rue du Commerce, 59100 Armentières'),
 ('68MUL', 'Agence Mulhouse', '0389754123', '3 place de la République, 68100 Mulhouse'),
 ('76ROU', 'Agence Rouen', '0235678901', '5 avenue du Port, 76000 Rouen');
 ("34MON", "Agence Montpellier", "0624021144", "1925 Rue Saint-Priest, 34185 Montpellier");
 
--- ========== EMPLOYÉS ==========
 INSERT INTO Employé(Matricule, NomEmploye, PrenomEmploye, AdresseEmploye, DateEmbauche) VALUES
 (1001, 'DUPONT', 'Claire', '4 rue des Écoles, 59000 Lille', '2008-06-15'),
 (1002, 'MARTIN', 'Julien', '22 rue Verte, 68100 Mulhouse', '2015-09-01'),
@@ -175,7 +127,6 @@ INSERT INTO Employé(Matricule, NomEmploye, PrenomEmploye, AdresseEmploye, DateE
 (1004, 'GIRARD', 'Maxime', '12 rue des Lilas, 59110 La Madeleine', '2012-04-18'),
 (1005, 'ROUSSEL', 'Amélie', '7 rue du Stade, 68270 Wittenheim', '2018-10-09');
 
--- ========== TECHNICIENS (référence Employé.Matricule) ==========
 INSERT INTO Technicien(Matricule, TelephoneMobile, Qualification, DateObtention, idAgence) VALUES
 (1001, '0612345678', 'Niveau 2 - Réseau', '2009-05-10', '59ARM'),
 (1002, '0623456789', 'Niveau 3 - Électrique', '2016-11-22', '68MUL'),
@@ -183,20 +134,16 @@ INSERT INTO Technicien(Matricule, TelephoneMobile, Qualification, DateObtention,
 (1004, '0645678912', 'Niveau 1 - Maintenance', '2013-05-12', '59ARM'),
 (1005, '0656789123', 'Niveau 3 - Réseau avancé', '2019-11-03', '68MUL');
 
--- ========== TYPE CONTRAT ==========
 INSERT INTO TypeContrat(RefTypeContrat, DelaiIntervention, TauxApplicable) VALUES
 (1, '04:00:00', 75.00),
 (2, '02:00:00', 95.00),
 (3, '08:00:00', 120.00);
 
--- ========== TYPE MATERIEL ==========
 INSERT INTO TypeMateriel(ReferenceInterne, LibelleTypemateriel) VALUES
 (10, 'Imprimante thermique modèle A'),
 (20, 'Lecteur de codes-barres série X'),
 (30, 'Terminal de paiement TPV Pro');
 
--- ========== CLIENTS ==========
--- NumeroClient simulé depuis UUID -> valeurs entières uniques (9 chiffres)
 INSERT INTO Client(NumeroClient, RaisonSociale, Siren, CodeApe, Adresse, TelephoneClient, Email, DureeDeplacement, DistanceKM, idAgence) VALUES
 (132547890, 'Boulangerie du Centre', 123456789, '5610A', '8 rue du Marché, 59100 Lille', '0320223344', 'contact@boulangerie-centre.fr', '01:15:00', 18, '59ARM'),
 (214365879, 'Supermarché Mulhouse Sud', 987654321, '4711B', '14 rue du Commerce, 68200 Mulhouse', '0389765432', 'contact@sm-mulhouse.fr', '00:45:00', 12, '68MUL'),
@@ -213,9 +160,6 @@ INSERT INTO Client(NumeroClient, RaisonSociale, Siren, CodeApe, Adresse, Telepho
 (321654987, 'Clinique Saint-Charles', 912678543, '8610A', '27 rue Saint-Charles, 76000 Rouen', '0235894411', 'contact@clinique-sc.fr', '00:20:00', 5, '76ROU'),
 (147258369, 'Brasserie Les Trois Lions', 753951456, '5630B', '11 place du Général, 59000 Lille', '0320157788', 'contact@troislions.fr', '01:05:00', 17, '59ARM');
 
--- ========== CONTRATS DE MAINTENANCE ==========
--- NumerodeContrat : valeurs entières uniques simulant UUID
--- DateEcheance = DateSignature + 1 an
 INSERT INTO Contratdemaintenance(NumerodeContrat, DateSignature, DateEcheance, NumeroClient, RefTypeContrat) VALUES
 (400000001, '2023-07-12', '2024-07-12', 132547890, 1),
 (400000002, '2024-11-20', '2025-11-20', 214365879, 2),
@@ -232,8 +176,6 @@ INSERT INTO Contratdemaintenance(NumerodeContrat, DateSignature, DateEcheance, N
 (400000013, '2024-06-14', '2025-06-14', 321654987, 2),
 (400000014, '2025-01-04', '2026-01-04', 147258369, 1);
 
--- ========== MATERIEL ==========
--- NumerodeSerie int, DateInstallation DATETIME, PrixdeVente (valeur numérique)
 INSERT INTO Materiel(NumerodeSerie, Datedevente, DateInstallation, PrixdeVente, Emplacement, ReferenceInterne, NumerodeContrat, NumeroClient) VALUES
 (50001, '2023-06-20', '2023-06-21 09:30:00', 450.00, 'Backoffice - rayon caisse', 10, 400000001, 132547890),
 (50002, '2024-10-10', '2024-10-12 14:00:00', 1290.00, 'Comptoir principal', 30, 400000002, 214365879),
@@ -247,8 +189,6 @@ INSERT INTO Materiel(NumerodeSerie, Datedevente, DateInstallation, PrixdeVente, 
 (50010, '2022-10-01', '2022-10-03 11:00:00', 260.00, 'Réserve — rack B4', 20, 400000008, 214365879),
 (50011, '2025-02-18', '2025-02-20 08:15:00', 1120.00, 'Salle informatique — baie serveur', 30, NULL, 123456789);
 
--- ========== INTERVENTIONS ==========
--- NumeroIntervent au format YYYYMMXXXX (entier) ; exemple : 2025110001
 INSERT INTO Intervention(NumeroIntervent, DateVisite, HeureVisite, Matricule, NumeroClient) VALUES
 (2025110001, '2025-11-15', '09:00:00', 1001, 132547890),
 (2025090052, '2025-09-18', '14:30:00', 1002, 214365879),
@@ -275,7 +215,6 @@ INSERT INTO Intervention(NumeroIntervent, DateVisite, HeureVisite, Matricule, Nu
 (2025110005, '2025-11-06', '11:25:00', 1003, 321654987),
 (2025110006, '2025-11-18', '14:55:00', 1004, 147258369);
 
--- ========== CONTROLER (liaison Intervention <-> Materiel) ==========
 INSERT INTO Controler(NumeroIntervent, NumerodeSerie, TempsPasse, Commentaire) VALUES
 (2025110001, 50001, '00:45:00', 'Remplacement bobine, test OK'),
 (2025090052, 50002, '01:20:00', 'Mise à jour firmware, calibrage effectué'),

@@ -1,0 +1,147 @@
+body {
+    margin: 0;
+    background: #f3f3f3;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+    gap: 10px;
+    align-items: flex-start;
+    box-sizing: border-box;
+}
+
+/* --- COLONNES (corrigé pour correspondre à l'HTML) --- */
+.colonneclient,
+.colonnecontrat,
+.colonneintervention {
+    padding: 12px;
+    color: white;
+    width: 150px;
+    min-width: 120px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    border-radius: 6px;
+}
+
+/* couleurs */
+.colonneclient { background: #333; }
+.colonnecontrat { background: #777; color: #fff; }
+.colonneintervention { background: #bbb; color: #fff; }
+
+/* --- TITRES DANS LES COLONNES --- */
+.colonneclient h2,
+.colonnecontrat h2,
+.colonneintervention h2 {
+    margin: 10px 0;
+    font-size: 15px;
+    text-decoration: underline;
+}
+
+/* --- PARTIE PRINCIPALE --- */
+.main {
+    flex: 1;
+    padding: 16px;
+    position: relative;
+    min-width: 0; /* permet au contenu de réduire correctement en flex */
+    overflow-y: auto;
+}
+
+/* Info client */
+.info-client {
+    background: #888;
+    width: 260px;
+    height: 120px;
+    border-radius: 8px;
+    border: 2px solid black;
+    padding: 10px;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    box-sizing: border-box;
+}
+
+/* Formulaire */
+.formulaire {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    max-width: 700px;
+}
+
+.formulaire label {
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Inputs plus compacts */
+.formulaire input[type="date"],
+.formulaire select {
+    padding: 6px 8px;
+    font-size: 14px;
+    width: 170px;
+    box-sizing: border-box;
+}
+
+.valider {
+    background: #0a8cff;
+    border: none;
+    padding: 8px 14px;
+    color: white;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.valider:hover {
+    filter: brightness(1.05);
+}
+
+/* Boîtes */
+.liste-materiaux, .commentaires {
+    margin-top: 30px;
+}
+
+.box {
+    border: 2px solid black;
+    height: 120px;
+    background: white;
+    border-radius: 8px;
+    box-sizing: border-box;
+    padding: 8px;
+}
+
+.box.large {
+    height: 200px;
+    background: lightgray;
+}
+
+/* Responsive: pour écrans étroits, empiler les colonnes au-dessus */
+@media (max-width: 1000px) {
+    .container {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .colonneclient, .colonnecontrat, .colonneintervention {
+        width: 100%;
+        display: flex;
+        gap: 12px;
+        overflow-x: auto;
+        padding: 8px;
+    }
+
+    .info-client {
+        position: static;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .main {
+        padding: 12px;
+    }
+}

@@ -52,6 +52,10 @@ Ensuite, cliquez sur l'URL `http://localhost:X` générée dans votre terminal.
 
 Dès que la page `index.html` (Connexion) est ouverte, utilisez l'un de ces profils :
 
+**Profil Admin (Etienne Lantier)**
+- **Matricule :** `3001`
+- **Mot de passe :** `password123`
+
 **Profil Technicien (Claire DUPONT)**
 - **Matricule :** `1001`
 - **Mot de passe :** `password123`

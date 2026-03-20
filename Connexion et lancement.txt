@@ -1,0 +1,17 @@
+Connexion Technicien :
+Matricule : 1001 (Claire DUPONT)
+Mot de passe : password123
+Connexion Gestionnaire (Statistiques globales) :
+Matricule : 2001 (Paul BERNARD)
+Mot de passe : password123
+
+
+Comment lancer node.js dans le dossier CashCash
+C:\Users\teopa>E:
+
+E:\>cd E:\CashCash
+
+E:\CashCash>.\node.exe server.js
+(node:26764) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+Server running on http://localhost:3000
